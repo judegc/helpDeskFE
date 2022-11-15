@@ -1,0 +1,17 @@
+CREATE DATABASE _ticketDb
+
+CREATE TABLE Tickets(
+	Id INT IDENTITY PRIMARY KEY,
+  	OpenedBy NVARCHAR(30),
+  	Issue NVARCHAR(300),
+  	ResolvedBy NVARCHAR(30),
+  	Resolution NVARCHAR(300),
+  	Resolved BIT,
+  	Favorited BIT
+)
+
+CREATE TABLE Favorites(
+	Id INT IDENTITY PRIMARY KEY,
+	FavoritedBy NVARCHAR(30),
+	TicketId INT FOREIGN KEY REFERENCES Tickets(Id)
+)
