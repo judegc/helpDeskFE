@@ -1,0 +1,24 @@
+<h1>GC Help Desk- Tickets:</h1>
+<table>
+    <tr>
+        <th>Ticket Id</th>
+        <th>Opened By</th>
+        <th>Issue</th>
+        <th>Resolved By</th>
+        <th>Resolution</th>
+        <th>Resolved</th>
+        <th>Favorited</th>
+    </tr>
+    <tr *ngFor="let t of tickets">
+        <td>{{ t.Id }}</td>
+        <td>{{ t.OpenedBy }}</td>
+        <td>{{ t.Issue }}</td>
+        <td>{{ t.ResolvedBy }}</td>
+        <td>{{ t.Resolution }}</td>
+        <td>{{ t.Resolved }}</td>
+        <td>{{ t.Favorited }}</td>
+        <button onclick="Edit">Edit</button> <!--update onClick to backend method-->
+        <button onclick="Bookmark">Bookmark</button>
+        <button onclick="Resolve">Resolve</button>
+    </tr>
+</table>

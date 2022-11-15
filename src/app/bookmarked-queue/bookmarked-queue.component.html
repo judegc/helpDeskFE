@@ -1,0 +1,25 @@
+<h1 *ngIf="isVisible ? 'block' : 'none'">GC Help Desk- Bookmarked Tickets:</h1>
+<table>
+    <tr>
+        <th>Bookmark Id</th>
+        <th>Ticket Id</th>
+        <th>Opened By</th>
+        <th>Issue</th>
+        <th>Resolved By</th>
+        <th>Resolution</th>
+        <th>Resolved</th>
+        <th>Favorited</th>
+    </tr>
+    <tr *ngFor="let t of tickets; let b of bookmarkedTickets">
+        <td>{{ b.Id }}</td>
+        <td>{{ t.Id }}</td>
+        <td>{{ t.OpenedBy }}</td>
+        <td>{{ t.Issue }}</td>
+        <td>{{ t.ResolvedBy }}</td>
+        <td>{{ t.Resolution }}</td>
+        <td>{{ t.Resolved }}</td>
+        <td>{{ t.Favorited }}</td>
+        <button onclick="Edit">Edit</button> <!--update onClick to backend method-->
+        <button onclick="Delete">Delete</button>
+    </tr>
+</table>
