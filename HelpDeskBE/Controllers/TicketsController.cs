@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HelpDeskBE.Models;
+using System.Net.Sockets;
 
 namespace HelpDeskBE.Controllers
 {
@@ -44,32 +45,22 @@ namespace HelpDeskBE.Controllers
         // PUT: api/Tickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(int id, Ticket ticket)
+        public async Task<IActionResult> ResolveTicket(int id, string resolution, string username)
         {
-            if (id != ticket.Id)
+            try
+            {
+                var ticket = await _context.Tickets.FindAsync(id);
+                ticket.Resolution = resolution;
+                ticket.ResolvedBy = username;
+                ticket.Resolved = true;
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch
             {
                 return BadRequest();
             }
-
-            _context.Entry(ticket).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Tickets
