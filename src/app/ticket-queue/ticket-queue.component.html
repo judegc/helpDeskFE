@@ -3,6 +3,10 @@
         <span>
             <a [routerLink]="['/home-view']" [routerLinkActive]="['link-active']"> 
             Logout</a>
+        </span><br>
+        <span>
+            <a [routerLink]="['/favorite-queue']" [routerLinkActive]="['link-active']"> 
+            Favorites</a>
         </span>
     </nav>
 </header>
@@ -18,7 +22,7 @@
         <th>Resolved</th>
         <th>Favorited</th>
     </tr>
-    <tr *ngFor="let t of tickets">
+    <tr *ngFor="let t of tickets; index as i">
         <td>{{ t.id }}</td>
         <td>{{ t.openedBy }}</td>
         <td>{{ t.issue }}</td>
@@ -26,9 +30,9 @@
         <td>{{ t.resolution }}</td>
         <td>{{ t.resolved }}</td>
         <td>{{ t.favorited }}</td>
-        <button onclick="removeTicket(t.id)">Delete</button>
-        <button onclick="Favorite">Favorite</button>
-        <button onclick="Resolve">Resolve</button>
+        <td><button (click)="removeTicket(t.id)">Delete</button></td>        
+        <button (click)="Favorited(t)">Favorite</button>
+        <button onclick="t.resolved = true">Resolve</button>
     </tr>
 </table>
 

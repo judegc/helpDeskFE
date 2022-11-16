@@ -14,16 +14,24 @@ import { Ticket } from '../interfaces/ticket';
   styleUrls: ['./favorite-queue.component.css']
 })
 export class FavoriteQueueComponent implements OnInit {
-  favorites: Favorite[] = [];
-  tickets: Ticket[] = [];
+  favorites: Favorite[] = this.service.favorites;
+  tickets: Ticket[] = this.service.tickets;
 
-  constructor(private service: HelpDeskService) { }
+  constructor(protected service: HelpDeskService) { }
 
   ngOnInit(): void {
     this.service.getFavorites().subscribe((data: Favorite[]) => this.favorites = data)
   }
 
   isVisible: boolean = false;
+
+  removeFavorite = (id: number): void => {
+    this.service.deleteFavorite(id).subscribe(() => this.loadFavorites());
+  }
+
+  loadFavorites = (): void => {
+    this.service.getFavorites().subscribe((data:Favorite[]) => this.favorites = data)
+  }
 
 
 }

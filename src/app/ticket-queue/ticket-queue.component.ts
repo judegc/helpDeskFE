@@ -4,6 +4,7 @@ import { HomeViewComponent } from '../home-view/home-view.component';
 import { FavoriteQueueComponent } from '../favorite-queue/favorite-queue.component';
 import { FormsModule } from '@angular/forms';
 import { Ticket } from '../interfaces/ticket';
+import { Favorite } from '../interfaces/favorite';
 import { HelpDeskService } from '../help-desk.service';
 
 
@@ -13,10 +14,11 @@ import { HelpDeskService } from '../help-desk.service';
   styleUrls: ['./ticket-queue.component.css']
 })
 export class TicketQueueComponent implements OnInit {
-  tickets: Ticket[] = [];
+  favorites: Favorite[] = this.service.favorites;
+  tickets: Ticket[] = this.service.tickets;
   newIssue: string = "";
 
-  constructor(public service: HelpDeskService) { }
+  constructor(protected service: HelpDeskService) { }
 
   newTicket: Ticket = {
     id: 0,
@@ -45,6 +47,15 @@ export class TicketQueueComponent implements OnInit {
     ticket = {id: this.tickets.length + 1, openedBy: this.service.userName, issue: this.newIssue, resolvedBy: "", resolution: "", resolved: false, favorited: false }
     this.tickets.push(ticket)
     this.service.postTicket(ticket).subscribe(() => this.loadTickets())
+  }
+
+  Favorited(t: Ticket): void {
+    t.favorited = true;
+    this.favorites.push()
+  }
+
+  Resolved(t: Ticket): void {
+    t.resolved = true;
   }
 
 }

@@ -8,36 +8,39 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HelpDeskService {
-  backendURL: string = 'https://localhost:7127/api';
+  backEndURL: string = 'https://localhost:7127/api';
 
   constructor(private httpClient: HttpClient) { }
 
+  favorites: Favorite[] = [];
+  tickets: Ticket[] = [];
+
   userName: string = "";
 
-  getTickets = () => {
-    return this.httpClient.get<Ticket[]>(this.backendURL + "/ticket-queue")
+  getTickets = (): Observable<Ticket[]> => {
+    return this.httpClient.get<Ticket[]>(`${this.backEndURL}/ticket-queue`)
   }
 
   postTicket = (ticket: Ticket): Observable<Ticket> => {
-    return this.httpClient.post<Ticket>(this.backendURL + "/ticket-queue", ticket)
+    return this.httpClient.post<Ticket>(`${this.backEndURL}/ticket-queue`, ticket)
   }; 
 
   deleteTicket = (id: number): Observable<void> => {
-    return this.httpClient.delete<void>(this.backendURL + "/ticket-queue" + id)
+    return this.httpClient.delete<void>(`${this.backEndURL}/ticket-queue/${id}`)
   }; 
 
-  getFavorites = () => {
-     return this.httpClient.get<Favorite[]>(this.backendURL + "/favorite-queue")
+  getFavorites = (): Observable<Favorite[]> => {
+     return this.httpClient.get<Favorite[]>(`${this.backEndURL}/favorite-queue`)
   }
 
   addNewFavorite = (favorite: Favorite): Observable<Favorite> => {
-    return this.httpClient.post<Favorite>(this.backendURL + "/favorite-queue", favorite)
+    return this.httpClient.post<Favorite>(`${this.backEndURL}/favorite-queue`, favorite)
   }; 
 
   deleteFavorite = (id: number): Observable<void> => {
-    return this.httpClient.delete<void>(this.backendURL + "/favorite-queue" + id)
+    return this.httpClient.delete<void>(`${this.backEndURL}/favorite-queue/${id}`)
   }; 
-
+ 
 
 
 }

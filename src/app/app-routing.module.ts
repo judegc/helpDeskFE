@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { HomeViewComponent } from './home-view/home-view.component';
 import { TicketQueueComponent } from './ticket-queue/ticket-queue.component';
 import { FavoriteQueueComponent } from './favorite-queue/favorite-queue.component';
