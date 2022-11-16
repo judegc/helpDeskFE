@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { HomeViewComponent } from '../home-view/home-view.component';
-import { BookmarkedQueueComponent } from '../bookmarked-queue/bookmarked-queue.component';
+import { FavoriteQueueComponent } from '../favorite-queue/favorite-queue.component';
 import { FormsModule } from '@angular/forms';
-import { Ticket } from '../interfaces/Ticket';
+import { Ticket } from '../interfaces/ticket';
 import { HelpDeskService } from '../help-desk.service';
 
 
@@ -14,20 +14,37 @@ import { HelpDeskService } from '../help-desk.service';
 })
 export class TicketQueueComponent implements OnInit {
   tickets: Ticket[] = [];
+  newIssue: string = "";
 
-  constructor(private service: HelpDeskService) { }
+  constructor(public service: HelpDeskService) { }
+
+  newTicket: Ticket = {
+    id: 0,
+    openedBy: "",
+    issue: "",
+    resolvedBy: "",
+    resolution: "",
+    resolved: false,
+    favorited: false
+  }
 
   ngOnInit(): void {
-    this.service.getTickets().subscribe((data: Ticket[]) => this.tickets = data)
+    this.loadTickets();
+  }
+
+  loadTickets = (): void => {
+    this.service.getTickets().subscribe((data:Ticket[]) => this.tickets = data)
   }
 
   removeTicket = (id: number): void => {
-    this.service.deleteTicket(id).subscribe(() =>)
+    this.service.deleteTicket(id).subscribe(() => this.loadTickets());
   }
 
-  isVisible: boolean = false;
 
-
-
+  addTicket = (ticket: Ticket): void => {
+    ticket = {id: this.tickets.length + 1, openedBy: this.service.userName, issue: this.newIssue, resolvedBy: "", resolution: "", resolved: false, favorited: false }
+    this.tickets.push(ticket)
+    this.service.postTicket(ticket).subscribe(() => this.loadTickets())
+  }
 
 }

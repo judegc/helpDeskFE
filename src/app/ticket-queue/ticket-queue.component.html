@@ -1,4 +1,13 @@
-<h1>GC Help Desk- Tickets:</h1>
+<header>
+    <nav>
+        <span>
+            <a [routerLink]="['/home-view']" [routerLinkActive]="['link-active']"> 
+            Logout</a>
+        </span>
+    </nav>
+</header>
+
+<h1>GC Help Desk- Tickets: Welcome {{service.userName}}</h1>
 <table>
     <tr>
         <th>Ticket Id</th>
@@ -10,15 +19,17 @@
         <th>Favorited</th>
     </tr>
     <tr *ngFor="let t of tickets">
-        <td>{{ t.Id }}</td>
-        <td>{{ t.OpenedBy }}</td>
-        <td>{{ t.Issue }}</td>
-        <td>{{ t.ResolvedBy }}</td>
-        <td>{{ t.Resolution }}</td>
-        <td>{{ t.Resolved }}</td>
-        <td>{{ t.Favorited }}</td>
-        <button onclick="Edit">Edit</button> <!--update onClick to backend method-->
-        <button onclick="Bookmark">Bookmark</button>
+        <td>{{ t.id }}</td>
+        <td>{{ t.openedBy }}</td>
+        <td>{{ t.issue }}</td>
+        <td>{{ t.resolvedBy }}</td>
+        <td>{{ t.resolution }}</td>
+        <td>{{ t.resolved }}</td>
+        <td>{{ t.favorited }}</td>
+        <button onclick="removeTicket(t.id)">Delete</button>
+        <button onclick="Favorite">Favorite</button>
         <button onclick="Resolve">Resolve</button>
     </tr>
 </table>
+
+<p>Issue:</p><input [(ngModel)]="newIssue"><button (click)="addTicket(newTicket)">Add Ticket</button>

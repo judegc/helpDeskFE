@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Ticket } from './interfaces/Ticket';
-import { BookmarkedTicket } from './interfaces/BookmarkedTicket';
+import { Ticket } from './interfaces/ticket';
+import { Favorite } from './interfaces/favorite';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelpDeskService {
-  backendURL: string = '';
+  backendURL: string = 'https://localhost:7127/api';
 
   constructor(private httpClient: HttpClient) { }
+
+  userName: string = "";
 
   getTickets = () => {
     return this.httpClient.get<Ticket[]>(this.backendURL + "/ticket-queue")
   }
 
-  addNewTicket = (ticket: Ticket): Observable<Ticket> => {
+  postTicket = (ticket: Ticket): Observable<Ticket> => {
     return this.httpClient.post<Ticket>(this.backendURL + "/ticket-queue", ticket)
   }; 
 
@@ -24,16 +26,18 @@ export class HelpDeskService {
     return this.httpClient.delete<void>(this.backendURL + "/ticket-queue" + id)
   }; 
 
-  getBookMarkedTickets = () => {
-     return this.httpClient.get<BookmarkedTicket[]>(this.backendURL + "/bookmarked-queue")
+  getFavorites = () => {
+     return this.httpClient.get<Favorite[]>(this.backendURL + "/favorite-queue")
   }
 
-  addNewBookMarkedTicket = (bookmarkedTicket: BookmarkedTicket): Observable<BookmarkedTicket> => {
-    return this.httpClient.post<BookmarkedTicket>(this.backendURL + "/bookmarked-queue", bookmarkedTicket)
+  addNewFavorite = (favorite: Favorite): Observable<Favorite> => {
+    return this.httpClient.post<Favorite>(this.backendURL + "/favorite-queue", favorite)
   }; 
 
-  deleteBookMarkedTicket = (id: number): Observable<void> => {
-    return this.httpClient.delete<void>(this.backendURL + "/bookmarked-queue" + id)
+  deleteFavorite = (id: number): Observable<void> => {
+    return this.httpClient.delete<void>(this.backendURL + "/favorite-queue" + id)
   }; 
+
+
 
 }
