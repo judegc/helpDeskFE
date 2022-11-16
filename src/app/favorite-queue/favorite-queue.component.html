@@ -1,0 +1,44 @@
+<header>
+    <nav>
+        <span>
+            <a [routerLink]="['/home-view']" [routerLinkActive]="['link-active']">
+            Logout</a>
+        </span><br>
+        <span>
+            <a [routerLink]="['/ticket-queue']" [routerLinkActive]="['link-active']">
+            All Tickets</a>
+        </span>
+    </nav>
+</header>
+
+<h1>GC Help Desk- Favorites: Welcome {{service.userName}}</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Favorited By</th>
+        <th>Ticket Id</th>
+        <th>Opened By</th>
+        <th>Issue</th>
+        <th>Resolved By</th>
+        <th>Resolution</th>
+        <th>Resolved</th>
+        <th>Favorited</th>
+    </tr>
+    <tr *NgFor="let f of favorites; index as i">
+        <td>{{ f.id }}</td>
+        <td>{{ f.favoritedBy }}</td>
+        <td>{{ f.ticketId }}</td>
+    </tr>
+    <tr *ngFor="let t of tickets; index as i">
+        <td>{{ t.id }}</td>
+        <td>{{ t.openedBy }}</td>
+        <td>{{ t.issue }}</td>
+        <td>{{ t.resolvedBy }}</td>
+        <td>{{ t.resolution }}</td>
+        <td>{{ t.resolved }}</td>
+        <td>{{ t.favorited }}</td>
+        <td><button (click)="removeFavorite(t.id)">Delete</button></td>        
+        <button onclick="Favorite">UnFavorite</button>
+        <button onclick="Resolve">Resolve</button>
+    </tr>
+</table>

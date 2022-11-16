@@ -4,8 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeViewComponent } from './home-view/home-view.component';
 import { TicketQueueComponent } from './ticket-queue/ticket-queue.component';
-import { BookmarkedQueueComponent } from './bookmarked-queue/bookmarked-queue.component';
+import { FavoriteQueueComponent } from './favorite-queue/favorite-queue.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -14,12 +15,13 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeViewComponent,
     TicketQueueComponent,
-    BookmarkedQueueComponent
+    FavoriteQueueComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
