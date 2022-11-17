@@ -17,6 +17,7 @@ export class TicketQueueComponent implements OnInit {
   favorites: Favorite[] = this.service.favorites;
   tickets: Ticket[] = this.service.tickets;
   newIssue: string = "";
+  currentIssue: string = ""; //Copy here for on-click issue display
 
   constructor(protected service: HelpDeskService) { }
 
@@ -57,5 +58,10 @@ export class TicketQueueComponent implements OnInit {
   Resolved(t: Ticket): void {
     t.resolved = true;
   }
+
+  displayIssue(t: Ticket): void { //Copy here for on-click issue display
+    this.currentIssue = t.issue;
+  }
+
 
 }

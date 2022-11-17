@@ -40,6 +40,10 @@ export class HelpDeskService {
   deleteFavorite = (id: number): Observable<void> => {
     return this.httpClient.delete<void>(`${this.backEndURL}/favorite-queue/${id}`)
   }; 
+
+  displayIssueFavorite(id: number): string {
+    return this.tickets[id].issue
+  }
  
 
 
