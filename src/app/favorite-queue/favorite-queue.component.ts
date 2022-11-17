@@ -26,12 +26,10 @@ export class FavoriteQueueComponent implements OnInit {
   isVisible: boolean = false;
 
   removeFavorite = (id: number): void => {
-    this.service.deleteFavorite(id).subscribe(() => this.loadFavorites());
+    this.service.deleteFavorite(id).subscribe(() => this.service.loadFavorites());
   }
 
-  loadFavorites = (): void => {
-    this.service.getFavorites().subscribe((data:Favorite[]) => this.favorites = data)
-  }
+
 
 
 }

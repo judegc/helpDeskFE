@@ -11,6 +11,8 @@
     </nav>
 </header>
 
+<hr>
+
 <h1>GC Help Desk- Favorites: Welcome {{service.userName}}</h1>
 <table>
     <tr>
@@ -18,9 +20,16 @@
         <th>Favorited By</th>
         <th>Ticket Id</th>
     </tr>
-    <tr *NgFor="let f of favorites; index as i">
+    <tr (click)="this.service.displayIssueFavorite(f.ticketId)", *NgFor="let f of favorites; index as i"> <!--Copy here for on-click issue display-->
         <td>{{ f.id }}</td>
         <td>{{ f.favoritedBy }}</td>
         <td>{{ f.ticketId }}</td>
+        <td><button>Delete</button></td>        
+        <button>Favorite</button>
+        <button>Resolve</button><br>
     </tr>
 </table>
+
+<hr>
+
+<p>Issue for selected ticket: {{ this.service.favoriteIssue }}</p> <!--Copy here for on-click issue display-->

@@ -52,7 +52,9 @@ export class TicketQueueComponent implements OnInit {
 
   Favorited(t: Ticket): void {
     t.favorited = true;
-    this.favorites.push()
+    this.service.newFavorite = {id: this.favorites.length + 1, favoritedBy: this.service.userName, ticketId: t.id} //Copy here for on-click issue display
+    this.favorites.push(this.service.newFavorite)
+    this.service.postFavorite(this.service.newFavorite).subscribe(() => this.service.loadFavorites())
   }
 
   Resolved(t: Ticket): void {
@@ -62,6 +64,7 @@ export class TicketQueueComponent implements OnInit {
   displayIssue(t: Ticket): void { //Copy here for on-click issue display
     this.currentIssue = t.issue;
   }
+
 
 
 }
